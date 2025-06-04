@@ -128,5 +128,5 @@ body, main {
 }
 
 body {
-  padding: 1.875rem;
+  padding: 1.875rem !important;
 }
