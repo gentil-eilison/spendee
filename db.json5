@@ -1,0 +1,8 @@
+{
+    transactions: [],
+    profile: {
+        firstName: "Gentil",
+        lastName: "Alyson",
+        balance: 5000
+    }
+}

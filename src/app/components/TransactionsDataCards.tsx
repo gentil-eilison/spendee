@@ -1,7 +1,14 @@
+"use client";
+
+import { useContext } from "react";
+
 import { CalendarDays, TrendingDown, TrendingUp, Wallet } from "lucide-react";
 import TransactionDataCard from "./TransactionDataCard";
+import { UserContext } from "@/contexts/UserContext";
 
 export default function TransactionsDataCards() {
+    const context = useContext(UserContext);
+
     return (
         <div className="flex flex-col md:flex-row justify-between gap-4 mt-6">
             <TransactionDataCard
@@ -23,7 +30,7 @@ export default function TransactionsDataCards() {
                 headerText="Balance"
                 contentColorClass="text-green-600"
             >
-                $1,770
+                ${ context?.user?.balance }
             </TransactionDataCard>
             <TransactionDataCard
                 icon={<CalendarDays className="text-purple-600"/>}
