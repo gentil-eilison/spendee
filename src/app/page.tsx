@@ -3,6 +3,7 @@ import TypographyH2 from "@/components/TypographyH2";
 import TransactionsDataCards from "./components/TransactionsDataCards";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AddTransaction from "./components/AddTransaction";
+import TransactionsHistory from "./components/transactions-history/TransactionsHistory";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
           <TabsTrigger value="analytics">Analytics</TabsTrigger>
         </TabsList>
         <TabsContent value="add-transaction"><AddTransaction /></TabsContent>
+        <TabsContent value="transactions"><TransactionsHistory /></TabsContent>
       </Tabs>
     </>
   );
