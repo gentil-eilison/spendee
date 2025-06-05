@@ -4,7 +4,7 @@ import SpendeeApi from "@/classes/SpendeeApi";
 import TypographyH1 from "@/components/TypographyH1";
 import TypographyH2 from "@/components/TypographyH2";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { 
