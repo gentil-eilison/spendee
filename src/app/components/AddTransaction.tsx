@@ -15,6 +15,7 @@ import {
     SelectTrigger, 
     SelectValue 
 } from "@/components/ui/select";
+import { useAlert } from "@/contexts/AlertContext";
 import { Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 
@@ -36,12 +37,22 @@ export default function AddTransaction() {
             description: ""
         }
     });
+    const { showAlert } = useAlert();
 
     async function onSubmit(data: AddTransactionData) {
         const spendee = new SpendeeApi();
         const response = await spendee.postTransaction(data);
         if (response) {
             form.reset();
+            showAlert({
+                message: "Transcation successfully added",
+                type: "success"
+            });
+        } else {
+            showAlert({
+                message: "There was an error, try again later",
+                type: "error"
+            });
         }
     }
 
