@@ -1,8 +1,1 @@
-{
-    transactions: [],
-    profile: {
-        firstName: "Gentil",
-        lastName: "Alyson",
-        balance: 5000
-    }
-}
+{transactions:[{id:'cdf0',type:'expense',amount:'400',category:'healthcare',date:'2025-06-05',description:'Testando'},{id:'6b74',type:'expense',amount:'400',category:'healthcare',date:'2025-06-05',description:'Testando'},{id:'051b',type:'expense',amount:'200',category:'utilities',date:'2025-06-05',description:'Jungkook'},{id:'ae40',type:'expense',amount:'200',category:'healthcare',date:'2025-06-05',description:'asdasd'},{id:'82b7',type:'income',amount:'200',category:'transportation',date:'2025-06-05',description:'asdas'},{id:'2e96',type:'expense',amount:'200',category:'entertainment',date:'2025-06-05',description:'adsdasdas'}],profile:{firstName:'Gentil',lastName:'Alyson',balance:5000}}

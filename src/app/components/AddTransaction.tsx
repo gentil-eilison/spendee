@@ -1,5 +1,6 @@
 "use client";
 
+import SpendeeApi from "@/classes/SpendeeApi";
 import TypographyH1 from "@/components/TypographyH1";
 import TypographyH2 from "@/components/TypographyH2";
 import { Button } from "@/components/ui/button";
@@ -17,19 +18,31 @@ import {
 import { Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 
+export interface AddTransactionData {
+    type: string;
+    amount: number;
+    category: string;
+    date: string;
+    description: string;
+}
+
 export default function AddTransaction() {
-    const form = useForm({
+    const form = useForm<AddTransactionData>({
         defaultValues: {
             type: "",
-            amount: "",
+            amount: 0.00,
             category: "",
             date: new Date().toISOString().split("T")[0],
             description: ""
         }
     });
 
-    function onSubmit(data: any) {
-
+    async function onSubmit(data: AddTransactionData) {
+        const spendee = new SpendeeApi();
+        const response = await spendee.postTransaction(data);
+        if (response) {
+            form.reset();
+        }
     }
 
     return (
