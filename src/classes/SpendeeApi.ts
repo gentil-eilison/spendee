@@ -40,6 +40,18 @@ export default class SpendeeApi {
             console.log(error);
             return null;
         }
+    }
 
+    public async getTransactions(): Promise<Transaction[]|null> {
+        try {
+            const response = await fetch(`${this.baseUrl}/transactions`);
+            if (response.status !== 200) {
+                return null;
+            } 
+            return await response.json();
+        } catch(error) {
+            console.log(error);
+            return null;
+        }
     }
 }

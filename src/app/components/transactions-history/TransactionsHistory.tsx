@@ -1,17 +1,44 @@
+"use client";
+
 import TypographyH1 from "@/components/TypographyH1";
 import TypographyH2 from "@/components/TypographyH2";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { 
     Table, 
     TableBody, 
-    TableCell, 
     TableHead,
     TableHeader, 
     TableRow 
 } from "@/components/ui/table";
-import TransactionRow from "./TransactionRow";
+import TransactionRow, { TransactionData } from "./TransactionRow";
+import { useEffect, useState } from "react";
+import SpendeeApi from "@/classes/SpendeeApi";
+import { useAlert } from "@/contexts/AlertContext";
+
+interface Transaction extends TransactionData {
+    id: number;
+}
 
 export default function TransactionsHistory() {
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
+    const { showAlert } = useAlert();
+
+    useEffect(() => {
+        const fetchTransactions = async () => {
+            const spendee = new SpendeeApi();
+            const data = await spendee.getTransactions();
+            if (!data) {
+                showAlert({
+                    message: "Failed to fetch transactions, try again later",
+                    type: "error"
+                });
+                return;
+            }
+            setTransactions(data);
+        }
+        fetchTransactions();
+    }, []);
+
     return (
         <Card>
             <CardHeader>
@@ -34,7 +61,9 @@ export default function TransactionsHistory() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TransactionRow transaction={{ date: "2025-01-01", type: "income", category: "Healthcare", description: "Urologist appointment", amount: 2000 }} />
+                        { transactions.map(transaction => (
+                            <TransactionRow transaction={ transaction } key={ transaction.id } />
+                        ))}
                     </TableBody>
                 </Table>
             </CardContent>

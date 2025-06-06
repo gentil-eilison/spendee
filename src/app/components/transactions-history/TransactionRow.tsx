@@ -1,6 +1,7 @@
 import { TableCell, TableRow } from "@/components/ui/table";
+import { capitalize } from "@/utils/strings";
 
-interface TransactionData {
+export interface TransactionData {
     date: string;
     type: string;
     category: string;
@@ -13,6 +14,8 @@ interface TransactionRowProps {
 }
 
 export default function TransactionRow({ transaction }: TransactionRowProps) {
+    const formattedDescription = capitalize(transaction.description);
+    const formattedDate = new Date(transaction.date).toLocaleDateString();
     let typeBackgroundColorClass = "";
     let amountColorClass = "";
     let amountPrefix = "";
@@ -24,7 +27,7 @@ export default function TransactionRow({ transaction }: TransactionRowProps) {
             amountPrefix = "+";
             break;
         default:
-            typeBackgroundColorClass = "bg-red-600";
+            typeBackgroundColorClass = "bg-red-400";
             amountColorClass = "text-red-600";
             amountPrefix = "-";
             break;
@@ -32,20 +35,20 @@ export default function TransactionRow({ transaction }: TransactionRowProps) {
 
     return (
         <TableRow>
-            <TableCell>{ transaction.date }</TableCell>
+            <TableCell>{ formattedDate }</TableCell>
             <TableCell>
                 <span className={
-                    `${typeBackgroundColorClass} text-white rounded-3xl text-center py-1 px-4`
+                    `${typeBackgroundColorClass} text-white rounded-3xl text-center inline-block w-[100px] py-0.5`
                 }>
                     { transaction.type }
                 </span>
             </TableCell>
-            <TableCell>{ transaction.category }</TableCell>
+            <TableCell>{ formattedDescription }</TableCell>
             <TableCell>{ transaction.description }</TableCell>
             <TableCell className={
                 `${amountColorClass} font-medium`
             }>
-                {amountPrefix}${ transaction.amount.toLocaleString() }
+                {amountPrefix}${ Number(transaction.amount).toLocaleString() }
             </TableCell>
         </TableRow>
     );
