@@ -51,9 +51,13 @@ export default function Home() {
           <TabsTrigger value="transactions">Transactions</TabsTrigger>
           <TabsTrigger value="analytics">Analytics</TabsTrigger>
         </TabsList>
-        <TabsContent value="add-transaction"><AddTransaction handleAddTransaction={setTransactions}/></TabsContent>
+        <TabsContent value="add-transaction">
+          <AddTransaction handleAddTransaction={setTransactions}/>
+        </TabsContent>
         { transactions && (
-          <TabsContent value="transactions"><TransactionsHistory transactions={ transactions }/></TabsContent>
+          <TabsContent value="transactions">
+            <TransactionsHistory transactions={ transactions }/>
+          </TabsContent>
         )}
       </Tabs>
     </>
