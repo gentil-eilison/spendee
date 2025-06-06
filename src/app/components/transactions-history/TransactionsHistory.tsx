@@ -11,34 +11,13 @@ import {
     TableRow 
 } from "@/components/ui/table";
 import TransactionRow, { TransactionData } from "./TransactionRow";
-import { useEffect, useState } from "react";
-import SpendeeApi from "@/classes/SpendeeApi";
-import { useAlert } from "@/contexts/AlertContext";
+import { Transaction } from "@/app/page";
 
-interface Transaction extends TransactionData {
-    id: number;
+interface TransactionHistoryProps {
+    transactions: Transaction[];
 }
 
-export default function TransactionsHistory() {
-    const [transactions, setTransactions] = useState<Transaction[]>([]);
-    const { showAlert } = useAlert();
-
-    useEffect(() => {
-        const fetchTransactions = async () => {
-            const spendee = new SpendeeApi();
-            const data = await spendee.getTransactions();
-            if (!data) {
-                showAlert({
-                    message: "Failed to fetch transactions, try again later",
-                    type: "error"
-                });
-                return;
-            }
-            setTransactions(data);
-        }
-        fetchTransactions();
-    }, []);
-
+export default function TransactionsHistory({ transactions }: TransactionHistoryProps) {
     return (
         <Card>
             <CardHeader>
