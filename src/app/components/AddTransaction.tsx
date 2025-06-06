@@ -17,7 +17,9 @@ import {
 } from "@/components/ui/select";
 import { useAlert } from "@/contexts/AlertContext";
 import { Plus } from "lucide-react";
+import { Dispatch, SetStateAction } from "react";
 import { useForm } from "react-hook-form";
+import { Transaction } from "../page";
 
 export interface AddTransactionData {
     type: string;
@@ -27,7 +29,11 @@ export interface AddTransactionData {
     description: string;
 }
 
-export default function AddTransaction() {
+interface AddTransactonProps {
+    handleAddTransaction: Dispatch<SetStateAction<Transaction[] | []>>
+}
+
+export default function AddTransaction({ handleAddTransaction }:  AddTransactonProps) {
     const form = useForm<AddTransactionData>({
         defaultValues: {
             type: "",
@@ -45,9 +51,13 @@ export default function AddTransaction() {
         if (response) {
             form.reset();
             showAlert({
-                message: "Transcation successfully added",
+                message: "Transaction successfully added",
                 type: "success"
             });
+            const listResponse = await spendee.getTransactions();
+            if (listResponse) {
+                handleAddTransaction(() => listResponse);
+            }
         } else {
             showAlert({
                 message: "There was an error, try again later",
