@@ -42,7 +42,11 @@ export default function TransactionRow({ transaction }: TransactionRowProps) {
             </TableCell>
             <TableCell>{ transaction.category }</TableCell>
             <TableCell>{ transaction.description }</TableCell>
-            <TableCell className={`${amountColorClass} font-medium`}>{amountPrefix}${ transaction.amount.toLocaleString() }</TableCell>
+            <TableCell className={
+                `${amountColorClass} font-medium`
+            }>
+                {amountPrefix}${ transaction.amount.toLocaleString() }
+            </TableCell>
         </TableRow>
     );
 }
