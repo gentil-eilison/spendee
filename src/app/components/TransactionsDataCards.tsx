@@ -1,13 +1,19 @@
 "use client";
 
-import { useContext } from "react";
-
 import { CalendarDays, TrendingDown, TrendingUp, Wallet } from "lucide-react";
 import TransactionDataCard from "./TransactionDataCard";
-import { UserContext } from "@/contexts/UserContext";
+import { Transaction } from "../page";
+import Transactions from "@/classes/Transactions";
 
-export default function TransactionsDataCards() {
-    const context = useContext(UserContext);
+interface TransactionDataCardsProps {
+    transactions: Transaction[];
+}
+
+export default function TransactionsDataCards({ transactions }: TransactionDataCardsProps) {
+    const totalIncome = Transactions.calculateTotalByType(transactions, "income");
+    const totalExpenses = Transactions.calculateTotalByType(transactions, "expense");
+    const balance = totalIncome - totalExpenses;
+    const balanceColorClass = balance > 0 ? "text-green-600" : "text-red-600";
 
     return (
         <div className="flex flex-col md:flex-row justify-between gap-4 mt-6">
@@ -16,21 +22,21 @@ export default function TransactionsDataCards() {
                 headerText="Total Income"
                 contentColorClass="text-green-600"
             >
-                $3,500
+                ${totalIncome.toLocaleString() || 0}
             </TransactionDataCard>
             <TransactionDataCard
                 icon={<TrendingDown className="text-red-600"/>}
                 headerText="Total Expenses"
                 contentColorClass="text-red-600"
             >
-                $1,730
+                ${totalExpenses.toLocaleString() || 0}
             </TransactionDataCard>
             <TransactionDataCard
                 icon={<Wallet className="text-blue-600"/>}
                 headerText="Balance"
-                contentColorClass="text-green-600"
+                contentColorClass={ balanceColorClass }
             >
-                ${ context?.user?.balance }
+                ${ balance }
             </TransactionDataCard>
             <TransactionDataCard
                 icon={<CalendarDays className="text-purple-600"/>}
@@ -38,7 +44,7 @@ export default function TransactionsDataCards() {
                 contentColorClass="text-purple-600"
                 caption="transactions"
             >
-                6
+                { transactions.length }
             </TransactionDataCard>
         </div>
     );

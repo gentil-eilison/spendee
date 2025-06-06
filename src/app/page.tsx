@@ -41,7 +41,9 @@ export default function Home() {
         <TypographyH1>Spendee</TypographyH1>
         <TypographyH2>Manage your income and expenses with ease</TypographyH2>
       </header>
-      <TransactionsDataCards />
+      { transactions && (
+        <TransactionsDataCards transactions={ transactions } />
+      )}
       <Tabs defaultValue="add-transaction">
         <TabsList className="w-full my-5 overflow-x-scroll">
           <TabsTrigger className="text-[16px]" value="dashboard">Dashboard</TabsTrigger>
