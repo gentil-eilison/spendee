@@ -2,14 +2,11 @@
 
 import { CalendarDays, TrendingDown, TrendingUp, Wallet } from "lucide-react";
 import TransactionDataCard from "./TransactionDataCard";
-import { Transaction } from "../page";
-import Transactions from "@/classes/Transactions";
+import Transactions from "@/app/transactions/classes/Transactions";
+import { useTransactions } from "@/contexts/TransactionsContext";
 
-interface TransactionDataCardsProps {
-    transactions: Transaction[];
-}
-
-export default function TransactionsDataCards({ transactions }: TransactionDataCardsProps) {
+export default function TransactionsDataCards() {
+    const { transactions } = useTransactions();
     const totalIncome = Transactions.calculateTotalByType(transactions, "income");
     const totalExpenses = Transactions.calculateTotalByType(transactions, "expense");
     const balance = totalIncome - totalExpenses;

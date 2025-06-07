@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import UserProvider from "@/contexts/UserContext";
 import AlertProvider from "@/contexts/AlertContext";
 import GlobalAlert from "@/components/GlobalAlert";
+import TransactionsProvider from "@/contexts/TransactionsContext";
 
 const inter = Inter({
   subsets: ["latin"]
@@ -27,11 +28,13 @@ export default function RootLayout({
       >
         <AlertProvider>
           <UserProvider>
+            <TransactionsProvider>
             <Header />
-            <main>
-              <GlobalAlert />
-              {children}
-            </main>
+              <main>
+                <GlobalAlert />
+                {children}
+              </main>
+            </TransactionsProvider>
           </UserProvider>
         </AlertProvider>
       </body>

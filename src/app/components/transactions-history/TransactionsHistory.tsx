@@ -10,14 +10,12 @@ import {
     TableHeader, 
     TableRow 
 } from "@/components/ui/table";
-import TransactionRow, { TransactionData } from "./TransactionRow";
-import { Transaction } from "@/app/page";
+import TransactionRow from "./TransactionRow";
+import { useTransactions } from "@/contexts/TransactionsContext";
 
-interface TransactionHistoryProps {
-    transactions: Transaction[];
-}
+export default function TransactionsHistory() {
+    const { transactions } = useTransactions();
 
-export default function TransactionsHistory({ transactions }: TransactionHistoryProps) {
     return (
         <Card>
             <CardHeader>

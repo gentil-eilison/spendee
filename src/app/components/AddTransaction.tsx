@@ -16,10 +16,10 @@ import {
     SelectValue 
 } from "@/components/ui/select";
 import { useAlert } from "@/contexts/AlertContext";
+import { TransactionsContext } from "@/contexts/TransactionsContext";
 import { Plus } from "lucide-react";
-import { Dispatch, SetStateAction } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Transaction } from "../page";
 
 export interface AddTransactionData {
     type: string;
@@ -29,11 +29,7 @@ export interface AddTransactionData {
     description: string;
 }
 
-interface AddTransactonProps {
-    handleAddTransaction: Dispatch<SetStateAction<Transaction[] | []>>
-}
-
-export default function AddTransaction({ handleAddTransaction }:  AddTransactonProps) {
+export default function AddTransaction() {
     const form = useForm<AddTransactionData>({
         defaultValues: {
             type: "",
@@ -44,6 +40,7 @@ export default function AddTransaction({ handleAddTransaction }:  AddTransactonP
         }
     });
     const { showAlert } = useAlert();
+    const context = useContext(TransactionsContext);
 
     async function onSubmit(data: AddTransactionData) {
         const spendee = new SpendeeApi();
@@ -56,7 +53,7 @@ export default function AddTransaction({ handleAddTransaction }:  AddTransactonP
             });
             const listResponse = await spendee.getTransactions();
             if (listResponse) {
-                handleAddTransaction(() => listResponse);
+                context?.setTransactions(() => listResponse);
             }
         } else {
             showAlert({

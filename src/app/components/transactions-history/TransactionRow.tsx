@@ -14,7 +14,6 @@ interface TransactionRowProps {
 }
 
 export default function TransactionRow({ transaction }: TransactionRowProps) {
-    const formattedDescription = capitalize(transaction.description);
     const formattedDate = new Date(transaction.date).toLocaleDateString();
     let typeBackgroundColorClass = "";
     let amountColorClass = "";
@@ -43,8 +42,8 @@ export default function TransactionRow({ transaction }: TransactionRowProps) {
                     { transaction.type }
                 </span>
             </TableCell>
-            <TableCell>{ formattedDescription }</TableCell>
-            <TableCell>{ transaction.description }</TableCell>
+            <TableCell>{ capitalize(transaction.category) }</TableCell>
+            <TableCell>{ capitalize(transaction.description) }</TableCell>
             <TableCell className={
                 `${amountColorClass} font-medium`
             }>
