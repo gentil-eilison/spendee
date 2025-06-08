@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AddTransaction from "./components/AddTransaction";
 import TransactionsHistory from "./components/transactions-history/TransactionsHistory";
 import Dashboard from "./components/dashboard/Dashboard";
+import RecentTransactions from "./components/recent-transactions/RecentTransactions";
 
 export default function Home() {
   return (
@@ -30,6 +31,7 @@ export default function Home() {
           <Dashboard />
         </TabsContent>
       </Tabs>
+      <RecentTransactions />
     </>
   );
 }
