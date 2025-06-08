@@ -19,7 +19,7 @@ export default function RecentTransactions() {
             </CardHeader>
             <CardContent className="flex flex-col gap-3">
                 { transactions && (
-                    transactions.slice(0, 5).map(transaction => (
+                    transactions.toReversed().slice(0, 5).map(transaction => (
                         <RecentTransaction 
                             key={ transaction.id } 
                             transaction={ transaction } 
