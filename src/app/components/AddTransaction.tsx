@@ -16,9 +16,8 @@ import {
     SelectValue 
 } from "@/components/ui/select";
 import { useAlert } from "@/contexts/AlertContext";
-import { TransactionsContext } from "@/contexts/TransactionsContext";
+import { useTransactions } from "@/contexts/TransactionsContext";
 import { Plus } from "lucide-react";
-import { useContext } from "react";
 import { useForm } from "react-hook-form";
 
 export interface AddTransactionData {
@@ -40,7 +39,7 @@ export default function AddTransaction() {
         }
     });
     const { showAlert } = useAlert();
-    const context = useContext(TransactionsContext);
+    const { setTransactions } = useTransactions();
 
     async function onSubmit(data: AddTransactionData) {
         const spendee = new SpendeeApi();
@@ -53,7 +52,7 @@ export default function AddTransaction() {
             });
             const listResponse = await spendee.getTransactions();
             if (listResponse) {
-                context?.setTransactions(() => listResponse);
+                setTransactions(() => listResponse);
             }
         } else {
             showAlert({
